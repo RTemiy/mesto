@@ -9,7 +9,7 @@ let addButton= document.querySelector('.profile__add');
 
 let popupElement = document.querySelector('.popup');
 
-let closeButton = document.querySelector('.popup__close');
+let closeButton = document.querySelector('.popup__cross');
 
 let formElement = document.querySelector('.popup__form');
 
