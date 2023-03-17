@@ -3,3 +3,10 @@
   margin-bottom: 40px;
   border-bottom: 1px solid #545454;
 }
+
+@media (max-width: 740px) {
+  .header{
+    padding: 28px 0 32px 0;
+    margin-bottom: 42px;
+  }
+}

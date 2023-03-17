@@ -12,3 +12,21 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
 }
+
+@media (max-width: 1080px) {
+  .root{
+    width: calc(100% - 2*100px);
+  }
+}
+
+@media (max-width: 890px) {
+  .root{
+    width: calc(100% - 2*32px);
+  }
+}
+
+@media (max-width: 740px) {
+  .root{
+    width: calc(100% - 2*19px);
+  }
+}

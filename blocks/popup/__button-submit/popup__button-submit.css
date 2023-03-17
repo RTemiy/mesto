@@ -10,3 +10,11 @@
   height: 50px;
   border: 0;
 }
+
+@media (max-width: 740px) {
+  .popup__button-submit{
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}

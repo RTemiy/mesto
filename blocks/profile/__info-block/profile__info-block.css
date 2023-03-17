@@ -1,14 +1,10 @@
-.profile{
+.profile__info-block{
   display: flex;
   flex-direction: row;
-  padding-bottom: 50px;
-  width: 100%;
-  margin: 0;
 }
 
 @media (max-width: 740px) {
-  .profile{
-    flex-direction: column;
+  .profile__info-block{
     justify-content: center;
   }
 }

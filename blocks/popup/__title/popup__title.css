@@ -6,3 +6,10 @@
   margin: 0;
   padding: 0 0 54px 0;
 }
+
+@media (max-width: 740px) {
+  .popup__title{
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

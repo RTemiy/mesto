@@ -1,12 +1,19 @@
 .profile__edit {
-  width: 24px;
+  min-width: 24px;
   height: 24px;
-  margin: 37px 0 0 0;
+  margin: 37px 19px 0 18px;
   background-color: transparent;
   border: 1px solid white;
   background-image: url("../../../images/edit.svg");
   background-position: center;
   background-size: 10px;
   background-repeat: no-repeat;
-  justify-self: right;
+}
+
+@media (max-width: 740px) {
+  .profile__edit{
+    min-width: 18px;
+    height: 18px;
+    margin: 30px 19px 0 10px;
+  }
 }
