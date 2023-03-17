@@ -1,0 +1,12 @@
+.profile__edit {
+  width: 24px;
+  height: 24px;
+  margin: 37px 0 0 0;
+  background-color: transparent;
+  border: 1px solid white;
+  background-image: url("../../../images/edit.svg");
+  background-position: center;
+  background-size: 10px;
+  background-repeat: no-repeat;
+  justify-self: right;
+}

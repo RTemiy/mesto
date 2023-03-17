@@ -3,6 +3,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   margin: 0 auto;
+  max-width: 880px;
+  width: calc(100% - 2*200px);
   font-family: 'Inter', Arial, sans-serif;
   background-color: black;
   color: white;

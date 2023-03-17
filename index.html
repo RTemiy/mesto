@@ -13,45 +13,58 @@
   <header class="header">
     <img class="header__logo" src="./images/logo.svg">
   </header>
-
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="">
-      <h1 class="profile__name">Жак-Ив Кусто</h1>
-      <p class="profile__about">Исследователь океана</p>
-      <button class="profile__edit"></button>
-      <button class="profile__add">+</button>
+      <img class="profile__avatar" src="./images/Avatar.png">
+      <div class="profile__data-block">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__about">Исследователь океана</p>
+      </div>
+      <button class="profile__edit hover-anim"></button>
+      <button class="profile__add hover-anim"></button>
     </section>
     <section class="cards">
       <div class="card">
         <img class="card__image" src="./images/kar.jpg">
-        <p class="card__title">Карачаево-Черкесия</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Карачаево-Черкесия</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/elb.jpg">
-        <p class="card__title">Гора Эльбрус</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Гора Эльбрус</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/dom.jpg">
-        <p class="card__title">Домбай</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Домбай</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/elb.jpg">
-        <p class="card__title">Гора Эльбрус</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Гора Эльбрус</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/dom.jpg">
-        <p class="card__title">Домбай</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Домбай</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
       <div class="card">
         <img class="card__image" src="./images/kar.jpg">
-        <p class="card__title">Карачаево-Черкесия</p>
-        <img class="card__like" src="./images/empty.svg">
+        <div class="card__info">
+          <p class="card__title">Карачаево-Черкесия</p>
+          <img class="card__like hover-anim" src="./images/empty.svg">
+        </div>
       </div>
     </section>
   </main>
@@ -59,5 +72,17 @@
   <footer class="footer">
     <p>© 2023 Mesto Russia</p>
   </footer>
+<div class="popup">
+  <div class="popup__container">
+    <button class="popup__close"></button>
+    <form class="popup__form">
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <input class="popup__input-name">
+      <input class="popup__input-about">
+      <button class="popup__button-submit hover-anim">Сохранить</button>
+    </form>
+  </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
