@@ -16,71 +16,53 @@
       <div class="profile__data-block">
         <div class="profile__info-block">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit hover-anim"></button>
+          <button type="button" class="profile__edit hover-anim"></button>
         </div>
         <p class="profile__about">Исследователь океана</p>
       </div>
-      <button class="profile__add hover-anim"></button>
+      <button type="button" class="profile__add hover-anim"></button>
     </section>
     <section class="cards">
-      <div class="card">
-        <img alt="Вид на горы с полу заброшенным зданием" class="card__image" src="./images/kar.jpg">
-        <div class="card__info">
-          <p class="card__title">Карачаево-Черкесия</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img alt="Равнина" class="card__image" src="./images/elb.jpg">
-        <div class="card__info">
-          <p class="card__title">Гора Эльбрус</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img alt="Вид на горы с лесом на переднем плане" class="card__image" src="./images/dom.jpg">
-        <div class="card__info">
-          <p class="card__title">Домбай</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img alt="Равнина" class="card__image" src="./images/elb.jpg">
-        <div class="card__info">
-          <p class="card__title">Гора Эльбрус</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img alt="Вид на горы с лесом на переднем плане" class="card__image" src="./images/dom.jpg">
-        <div class="card__info">
-          <p class="card__title">Домбай</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
-      <div class="card">
-        <img alt="Вид на горы с полу заброшенным зданием" class="card__image" src="./images/kar.jpg">
-        <div class="card__info">
-          <p class="card__title">Карачаево-Черкесия</p>
-          <button class="card__like hover-anim"></button>
-        </div>
-      </div>
     </section>
   </main>
   <footer class="footer">
-    <p>© 2023 Mesto Russia</p>
+    <p class="footer__text">© 2023 Mesto Russia</p>
   </footer>
 <div class="popup">
   <div class="popup__container">
-    <button class="popup__cross"></button>
-    <form class="popup__form">
+    <button type="button" class="popup__cross hover-anim"></button>
+    <form id="form_edit" name="profile" method="post" class="popup__form">
       <h3 class="popup__title">Редактировать профиль</h3>
-      <input class="popup__input-name">
-      <input class="popup__input-about">
-      <button class="popup__button-submit hover-anim">Сохранить</button>
+      <input placeholder="Имя" id="form_name" name="name" class="popup__input">
+      <input placeholder="О себе" id="form_about" name="about" class="popup__input">
+      <button type="submit" class="popup__button-submit">Сохранить</button>
+    </form>
+    <form id="form_add" name="newpost" method="post" class="popup__form">
+      <h3 class="popup__title">Новое место</h3>
+      <input placeholder="Название" id="form_place-name" name="name" class="popup__input">
+      <input placeholder="Ссылка на картинку" id="form_place-link" name="link" class="popup__input">
+      <button type="submit" class="popup__button-submit">Создать</button>
     </form>
   </div>
 </div>
-<script src="script.js"></script>
+  <div class="zoom">
+    <div class="zoom__container">
+      <button type="button" class="zoom__close"></button>
+      <img alt="Увеличенная картинка" class="zoom__image">
+      <p class="zoom__caption"></p>
+    </div>
+  </div>
+  <template id="card-template">
+    <article class="card">
+      <div class="card__image"></div>
+      <button class="card__delete"></button>
+      <div class="card__info">
+        <h2 class="card__title"></h2>
+        <button type="button" class="card__like"></button>
+      </div>
+    </article>
+  </template>
+
+<script src="scripts/script.js"></script>
 </body>
 </html>

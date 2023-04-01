@@ -8,4 +8,14 @@
   background-image: url("../../../images/empty.svg");
   background-repeat: no-repeat;
   background-position: center;
+  transition: opacity 0.5s ease-out;
+  cursor: pointer;
+}
+
+.card__like_active{
+  background-image: url("../../../images/like.svg");
+}
+
+.card__like:hover{
+  opacity: 0.5;
 }

@@ -4,29 +4,10 @@
   text-rendering: optimizeLegibility;
   margin: 0 auto;
   max-width: 880px;
-  width: calc(100% - 2*200px);
   font-family: 'Inter', Arial, sans-serif;
   background-color: black;
   color: white;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-}
-
-@media (max-width: 1080px) {
-  .root{
-    width: calc(100% - 2*100px);
-  }
-}
-
-@media (max-width: 890px) {
-  .root{
-    width: calc(100% - 2*32px);
-  }
-}
-
-@media (max-width: 740px) {
-  .root{
-    width: calc(100% - 2*19px);
-  }
 }
