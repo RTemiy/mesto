@@ -30,7 +30,7 @@
   </footer>
   <div id="popup_edit-profile" class="popup">
     <div class="popup__container">
-    <button type="button" class="popup__cross hover-anim"></button>
+    <button id="popup-edit_close" type="button" class="popup__cross hover-anim"></button>
     <form id="form_edit" name="profile" method="post" class="popup__form">
       <h3 class="popup__title">Редактировать профиль</h3>
       <input placeholder="Имя" id="form_name" name="name" class="popup__input">
@@ -41,7 +41,7 @@
 </div>
   <div id="popup_add-place" class="popup">
     <div class="popup__container">
-    <button type="button" class="popup__cross hover-anim"></button>
+    <button id="popup-add_close" type="button" class="popup__cross hover-anim"></button>
     <form id="form_add" name="newpost" method="post" class="popup__form">
       <h3 class="popup__title">Новое место</h3>
       <input placeholder="Название" id="form_place-name" name="name" class="popup__input">
@@ -52,7 +52,7 @@
   </div>
   <div id="popup_zoom-image" class="popup">
     <div class="popup__zoom-container">
-      <button type="button" class="popup__cross popup__cross_position_zoom hover-anim"></button>
+      <button id="popup-zoom_close" type="button" class="popup__cross hover-anim"></button>
       <img alt="Увеличенная картинка" class="popup__image">
       <p class="popup__caption"></p>
     </div>

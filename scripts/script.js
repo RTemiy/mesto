@@ -1,4 +1,4 @@
-const Cards = [
+const initialCards = [
   {
     name : 'İslam Sanatı Müzesi, Doha, Qatar',
     src : 'https://images.unsplash.com/photo-1679948905560-2c06b21d43c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
@@ -27,16 +27,18 @@ const Cards = [
 
 const fieldCards = document.querySelector('.cards');
 const templateCard = document.querySelector('#card-template').content;
-const formEdit = document.querySelector('#popup_edit-profile');
-const formAdd = document.querySelector('#popup_add-place');
+const formEditProfile = document.querySelector('#popup_edit-profile');
+const formAddCard = document.querySelector('#popup_add-place');
+const formAdd = document.querySelector('#form_add');
 const textProfileName= document.querySelector('.profile__name');
 const textProfileAbout= document.querySelector('.profile__about');
 const textPlaceName= document.querySelector('#form_place-name');
 const linkPlace= document.querySelector('#form_place-link');
-const buttonEdit= document.querySelector('.profile__edit');
-const buttonAdd= document.querySelector('.profile__add');
-const elementsPopupAll = Array.from(document.querySelectorAll('.popup'));
-const buttonsPopupClose = Array.from(document.querySelectorAll('.popup__cross'));
+const buttonOpenEditProfilePopup= document.querySelector('.profile__edit');
+const buttonOpenAddCardPopup= document.querySelector('.profile__add');
+const buttonCloseZoomPopup= document.querySelector('#popup-zoom_close');
+const buttonCloseEditProfilePopup= document.querySelector('#popup-edit_close');
+const buttonCloseAddCardProfilePopup= document.querySelector('#popup-add_close');
 const fieldZoom = document.querySelector('#popup_zoom-image');
 const imageZoom = fieldZoom.querySelector('.popup__image');
 const captionZoom = fieldZoom.querySelector('.popup__caption');
@@ -45,9 +47,10 @@ const inputAbout = document.querySelector('#form_about');
 
 function createCard(name,src){
   const Card = templateCard.cloneNode(true);
+  const imageCard = Card.querySelector('.card__image');
   Card.querySelector('.card__title').textContent = name;
-  Card.querySelector('.card__image').style = `background-image: url('${src}');`;
-  Card.querySelector('.card__image').title = name;
+  imageCard.style = `background-image: url('${src}');`;
+  imageCard.title = name;
 
   Card.querySelector('.card__image').addEventListener('click', function(){
     openPopup(fieldZoom);
@@ -63,6 +66,7 @@ function createCard(name,src){
   Card.querySelector('.card__like').addEventListener('click',function () {
     this.classList.toggle('card__like_active');
   });
+
   return Card;
 }
 
@@ -70,46 +74,53 @@ function addCard(card){
   fieldCards.prepend(card);
 }
 
-function closePopups() {
-  elementsPopupAll.forEach(el => {el.classList.remove('popup_opened');})
+function closePopup(element) {
+  element.classList.remove('popup_opened');
 }
 
 function openPopup (element) {
-  closePopups();
   element.classList.add('popup_opened');
 }
 
 function handleFormEditSubmit (evt) {
   evt.preventDefault();
-  closePopups()
+  closePopup(formEditProfile);
   textProfileName.textContent = inputName.value;
   textProfileAbout.textContent = inputAbout.value;
 }
 
 function handleFormAddSubmit (evt) {
   evt.preventDefault();
-  closePopups()
+  closePopup(formAddCard);
   addCard(createCard(textPlaceName.value,linkPlace.value));
 }
 
-buttonEdit.addEventListener('click', function (){
+buttonOpenEditProfilePopup.addEventListener('click', function () {
   inputName.value= textProfileName.textContent;
   inputAbout.value = textProfileAbout.textContent;
-  openPopup(formEdit);
+  openPopup(formEditProfile);
 });
 
-buttonAdd.addEventListener('click', function (){
-  document.querySelector('#form_add').reset();
-  openPopup(formAdd);
+buttonOpenAddCardPopup.addEventListener('click', function () {
+  formAdd.reset();
+  openPopup(formAddCard);
 });
 
-buttonsPopupClose.forEach(el => {
-  el.addEventListener('click', () => {closePopups()});
+buttonCloseZoomPopup.addEventListener('click', function () {
+  closePopup(fieldZoom);
 });
 
-formAdd.addEventListener('submit', handleFormAddSubmit);
-formEdit.addEventListener('submit', handleFormEditSubmit);
+buttonCloseEditProfilePopup.addEventListener('click', function () {
+  closePopup(formEditProfile);
+});
 
-Cards.forEach((el) => {
+buttonCloseAddCardProfilePopup.addEventListener('click', function () {
+  closePopup(formAddCard);
+});
+
+formAddCard.addEventListener('submit', handleFormAddSubmit);
+formEditProfile.addEventListener('submit', handleFormEditSubmit);
+
+initialCards.forEach((el) => {
   addCard(createCard(el.name,el.src));
 })
