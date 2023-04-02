@@ -8,15 +8,15 @@
   width: 40px;
   height: 40px;
   position: absolute;
-  left: 432px;
-  top: -44px;
+  right: -40px;
+  top: -50px;
   cursor: pointer;
 }
 
 @media (max-width: 740px) {
   .popup__cross{
     top: -35px;
-    left: 260px;
+    right: 0;
     width: 20px;
     height: 20px;
     background-size: 20px;

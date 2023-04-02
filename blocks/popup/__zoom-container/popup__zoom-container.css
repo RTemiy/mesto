@@ -1,0 +1,25 @@
+.popup__zoom-container{
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  flex-direction: column;
+  max-width: 75vw;
+  max-height: 75vh;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup__zoom-container:after{
+  background-color: rgba(0, 0, 0, 0.4);
+  content: '';
+  position: absolute;
+  top: -25vh;
+  right: 0;
+  bottom: 0;
+  left: -25vw;
+  display: block;
+  width: 150vw;
+  height: 150vh;
+  z-index: -1;
+}
