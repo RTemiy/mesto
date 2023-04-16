@@ -7,12 +7,18 @@
   min-height: 30px;
 }
 
+
+
 .popup__span:last-of-type {
     margin-bottom: 48px;
 }
 
 @media (max-width: 740px) {
+  .popup__span{
+    margin: 5px 22px 0 22px;
+  }
+
   .popup__span:last-of-type {
-    margin-bottom: 45px;
+    margin-bottom: 15px;
   }
 }
