@@ -13,3 +13,7 @@
   align-items: center;
   transition: visibility 0.5s, opacity 0.5s linear;
 }
+
+.popup:last-of-type{
+  background-color: rgba(0, 0, 0, 0.9);
+}

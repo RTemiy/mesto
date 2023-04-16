@@ -57,6 +57,7 @@ function createCard(name,src){
     captionZoom.textContent = name;
     imageZoom.src = src;
     imageZoom.alt = name;
+    document.addEventListener('keydown',handleCloseByEscape);
   });
 
   Card.querySelector('.card__delete').addEventListener('click',function () {
@@ -76,10 +77,20 @@ function addCard(card){
 
 function closePopup(element) {
   element.classList.remove('popup_opened');
+  document.removeEventListener('keydown',handleCloseByEscape);
 }
 
 function openPopup (element) {
   element.classList.add('popup_opened');
+}
+
+function handleCloseByEscape(e) {
+  if(e.key==='Escape') closePopup(document.querySelector('.popup_opened'));
+}
+
+
+function handleCloseByLayout(e) {
+  if (e.target.classList.contains('popup_opened')) closePopup(this);
 }
 
 function handleFormEditSubmit (evt) {
@@ -98,12 +109,14 @@ function handleFormAddSubmit (evt) {
 buttonOpenEditProfilePopup.addEventListener('click', function () {
   inputName.value= textProfileName.textContent;
   inputAbout.value = textProfileAbout.textContent;
+  document.addEventListener('keydown',handleCloseByEscape);
   openPopup(formEditProfile);
 });
 
 buttonOpenAddCardPopup.addEventListener('click', function () {
   formAdd.reset();
   openPopup(formAddCard);
+  document.addEventListener('keydown',handleCloseByEscape);
 });
 
 buttonCloseZoomPopup.addEventListener('click', function () {
@@ -119,7 +132,10 @@ buttonCloseAddCardProfilePopup.addEventListener('click', function () {
 });
 
 formAddCard.addEventListener('submit', handleFormAddSubmit);
+formAddCard.addEventListener('click', handleCloseByLayout);
 formEditProfile.addEventListener('submit', handleFormEditSubmit);
+formEditProfile.addEventListener('click', handleCloseByLayout);
+fieldZoom.addEventListener('click', handleCloseByLayout);
 
 initialCards.forEach((el) => {
   addCard(createCard(el.name,el.src));
