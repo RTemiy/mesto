@@ -103,8 +103,10 @@ function handleFormEditSubmit (evt) {
 function handleFormAddSubmit (evt) {
   evt.preventDefault();
   evt.submitter.classList.add('popup__button-submit_disabled');
+  evt.submitter.disabled = true;
   closePopup(formAddCard);
   addCard(createCard(textPlaceName.value,linkPlace.value));
+  formAdd.reset();
 }
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
@@ -114,7 +116,6 @@ buttonOpenEditProfilePopup.addEventListener('click', function () {
 });
 
 buttonOpenAddCardPopup.addEventListener('click', function () {
-  formAdd.reset();
   openPopup(formAddCard);
 });
 

@@ -36,9 +36,11 @@ const enableValidation = (settings) => {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add(settings.inactiveButtonClass);
       buttonElement.classList.remove(settings.activeButtonClass);
+      buttonElement.disabled = true;
     } else {
       buttonElement.classList.add(settings.activeButtonClass);
       buttonElement.classList.remove(settings.inactiveButtonClass);
+      buttonElement.disabled = false;
     }
   }
 
