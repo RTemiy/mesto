@@ -61,6 +61,10 @@ function addCard(card){
   cardContainer.prepend(card);
 }
 
+function createCard(name, src, template,fieldZoom,captionZoom,imageZoom,openPopup) {
+    return new Card(name, src, template,fieldZoom,captionZoom,imageZoom,openPopup).createCard();
+}
+
 function closePopup(element) {
   element.classList.remove('popup_opened');
   document.removeEventListener('keydown',handleCloseByEscape);
@@ -88,10 +92,9 @@ function handleFormEditSubmit (evt) {
 
 function handleFormAddSubmit (evt) {
   evt.preventDefault();
-  evt.submitter.classList.add('popup__button-submit_disabled');
-  evt.submitter.disabled = true;
+  validatorAddCard.disableSubmitButton();
   closePopup(formAddCard);
-  addCard(new Card(textPlaceName.value,linkPlace.value,templateCard,fieldZoom,captionZoom,imageZoom,openPopup).createCard());
+  addCard(createCard(textPlaceName.value,linkPlace.value,templateCard,fieldZoom,captionZoom,imageZoom,openPopup));
   formAdd.reset();
 }
 
@@ -123,9 +126,12 @@ formEditProfile.addEventListener('submit', handleFormEditSubmit);
 formEditProfile.addEventListener('click', handleCloseByLayout);
 fieldZoom.addEventListener('click', handleCloseByLayout);
 
-new FormValidator(settingsFormValidator,formAddCard).enableValidation();
-new FormValidator(settingsFormValidator,formEditProfile).enableValidation();
+const validatorAddCard = new FormValidator(settingsFormValidator,formAddCard);
+const validatorEditProfile = new FormValidator(settingsFormValidator,formEditProfile);
+
+validatorAddCard.enableValidation();
+validatorEditProfile.enableValidation();
 
 initialCards.forEach((el) => {
-  addCard(new Card(el.name,el.src,templateCard,fieldZoom,captionZoom,imageZoom,openPopup).createCard());
+  addCard(createCard(el.name,el.src,templateCard,fieldZoom,captionZoom,imageZoom,openPopup));
 })

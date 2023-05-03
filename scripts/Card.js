@@ -2,7 +2,8 @@ export default class Card {
   constructor(name, src, template,fieldZoom, captionZoom,imageZoom,openPopup) {
     this._cardName = name;
     this._cardSrc = src;
-    this._cardElement = template.cloneNode(true);
+    this._template = template;
+    this._cardElement = this._getCardTemplate();
     this._fieldZoom = fieldZoom;
     this._captionZoom = captionZoom;
     this._imageZoom = imageZoom;
@@ -13,6 +14,10 @@ export default class Card {
     this._addContent();
     this._addHandler();
     return this._cardElement;
+  }
+
+  _getCardTemplate(){
+    return this._template.cloneNode(true);
   }
 
   _addContent(){
