@@ -1,3 +1,6 @@
+import Card from './Card.js'
+import FormValidator from  './FormValidator.js'
+
 const initialCards = [
   {
     name : 'İslam Sanatı Müzesi, Doha, Qatar',
@@ -44,30 +47,14 @@ const imageZoom = fieldZoom.querySelector('.popup__image');
 const captionZoom = fieldZoom.querySelector('.popup__caption');
 const inputName = document.querySelector('#form_name');
 const inputAbout = document.querySelector('#form_about');
+const settingsFormValidator = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  inactiveButtonClass: 'popup__button-submit_disabled',
+  activeButtonClass: 'popup__button-submit_activated',
+  inputErrorClass: 'popup__input_type_error',
 
-function createCard(name,src){
-  const card = templateCard.cloneNode(true);
-  const imageCard = card.querySelector('.card__image');
-  card.querySelector('.card__title').textContent = name;
-  imageCard.style = `background-image: url('${src}');`;
-  imageCard.title = name;
-
-  card.querySelector('.card__image').addEventListener('click', function(){
-    openPopup(fieldZoom);
-    captionZoom.textContent = name;
-    imageZoom.src = src;
-    imageZoom.alt = name;
-  });
-
-  card.querySelector('.card__delete').addEventListener('click',function () {
-    this.closest('.card').remove();
-  });
-
-  card.querySelector('.card__like').addEventListener('click',function () {
-    this.classList.toggle('card__like_active');
-  });
-
-  return card;
 }
 
 function addCard(card){
@@ -88,7 +75,6 @@ function handleCloseByEscape(e) {
   if(e.key==='Escape') closePopup(document.querySelector('.popup_opened'));
 }
 
-
 function handleCloseByLayout(e) {
   if (e.target.classList.contains('popup_opened')) closePopup(e.target);
 }
@@ -105,7 +91,7 @@ function handleFormAddSubmit (evt) {
   evt.submitter.classList.add('popup__button-submit_disabled');
   evt.submitter.disabled = true;
   closePopup(formAddCard);
-  addCard(createCard(textPlaceName.value,linkPlace.value));
+  addCard(new Card(textPlaceName.value,linkPlace.value,templateCard,fieldZoom,captionZoom,imageZoom,openPopup).createCard());
   formAdd.reset();
 }
 
@@ -137,6 +123,9 @@ formEditProfile.addEventListener('submit', handleFormEditSubmit);
 formEditProfile.addEventListener('click', handleCloseByLayout);
 fieldZoom.addEventListener('click', handleCloseByLayout);
 
+new FormValidator(settingsFormValidator,formAddCard).enableValidation();
+new FormValidator(settingsFormValidator,formEditProfile).enableValidation();
+
 initialCards.forEach((el) => {
-  addCard(createCard(el.name,el.src));
+  addCard(new Card(el.name,el.src,templateCard,fieldZoom,captionZoom,imageZoom,openPopup).createCard());
 })
