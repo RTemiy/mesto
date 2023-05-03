@@ -11,7 +11,7 @@ export default class Card {
 
   createCard(){
     this._addContent();
-    this._addHandlers();
+    this._addHandler();
     return this._cardElement;
   }
 
@@ -22,7 +22,7 @@ export default class Card {
     imageCard.title = this._cardName;
   }
 
-  _addHandlers(){
+  _addHandler(){
     this._cardElement.querySelector('.card__image').addEventListener('click', () => {
       this._openPopup(this._fieldZoom);
       this._captionZoom.textContent = this._cardName;
