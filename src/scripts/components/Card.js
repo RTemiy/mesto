@@ -1,8 +1,8 @@
 export default class Card {
-  constructor(name, src, template, fieldZoom, captionZoom, imageZoom, openPopup) {
+  constructor(name, src, template, openPopup) {
     this._cardName = name;
     this._cardSrc = src;
-    this._template = template;
+    this._template = document.querySelector(template).content;
     this._cardElement = this._getCardTemplate();
     this._openPopup = openPopup;
   }
