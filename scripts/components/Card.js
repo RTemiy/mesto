@@ -1,12 +1,9 @@
 export default class Card {
-  constructor(name, src, template,fieldZoom, captionZoom,imageZoom,openPopup) {
+  constructor(name, src, template, fieldZoom, captionZoom, imageZoom, openPopup) {
     this._cardName = name;
     this._cardSrc = src;
     this._template = template;
     this._cardElement = this._getCardTemplate();
-    this._fieldZoom = fieldZoom;
-    this._captionZoom = captionZoom;
-    this._imageZoom = imageZoom;
     this._openPopup = openPopup;
   }
 
@@ -29,10 +26,7 @@ export default class Card {
 
   _addHandler(){
     this._cardElement.querySelector('.card__image').addEventListener('click', () => {
-      this._openPopup(this._fieldZoom);
-      this._captionZoom.textContent = this._cardName;
-      this._imageZoom.src = this._cardSrc;
-      this._imageZoom.alt = this._cardName;
+      this._openPopup(this._cardSrc, this._cardName);
     });
 
     this._cardElement.querySelector('.card__delete').addEventListener('click',function () {

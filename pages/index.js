@@ -1,5 +1,10 @@
-import Card from './Card.js'
-import FormValidator from  './FormValidator.js'
+import Card from '../scripts/components/Card.js'
+import FormValidator from '../scripts/components/FormValidator.js'
+import Section from '../scripts/components/Section.js'
+import PopupWithImage from '../scripts/components/PopupWithImage.js'
+import PopupWithForm from '../scripts/components/PopupWithForm.js'
+import UserInfo from '../scripts/components/UserInfo.js'
+import './index.css'
 
 const initialCards = [
   {
@@ -39,9 +44,6 @@ const textPlaceName= document.querySelector('#form_place-name');
 const linkPlace= document.querySelector('#form_place-link');
 const buttonOpenEditProfilePopup= document.querySelector('.profile__edit');
 const buttonOpenAddCardPopup= document.querySelector('.profile__add');
-const buttonCloseZoomPopup= document.querySelector('#popup-zoom_close');
-const buttonCloseEditProfilePopup= document.querySelector('#popup-edit_close');
-const buttonCloseAddCardProfilePopup= document.querySelector('#popup-add_close');
 const fieldZoom = document.querySelector('#popup_zoom-image');
 const imageZoom = fieldZoom.querySelector('.popup__image');
 const captionZoom = fieldZoom.querySelector('.popup__caption');
@@ -54,84 +56,52 @@ const settingsFormValidator = {
   inactiveButtonClass: 'popup__button-submit_disabled',
   activeButtonClass: 'popup__button-submit_activated',
   inputErrorClass: 'popup__input_type_error',
-
 }
 
-function addCard(card){
-  cardContainer.prepend(card);
+const popupAddCard = new PopupWithForm(formAddCard, handleFormAddSubmit);
+const popupFormEdit = new PopupWithForm(formEditProfile, handleFormEditSubmit);
+const popupZoom = new PopupWithImage(fieldZoom);
+
+const validatorAddCard = new FormValidator(settingsFormValidator,formAddCard);
+const validatorEditProfile = new FormValidator(settingsFormValidator,formEditProfile);
+
+const section = new Section({items: initialCards, renderer: renderCard}, cardContainer);
+
+const infoUser = new UserInfo(textProfileName,textProfileAbout);
+
+function renderCard({name, src}) {
+    const card = new Card(name, src, templateCard, fieldZoom, captionZoom, imageZoom, handleCardClick).createCard();
+    cardContainer.prepend(card);
 }
 
-function createCard(name, src, template,fieldZoom,captionZoom,imageZoom,openPopup) {
-    return new Card(name, src, template,fieldZoom,captionZoom,imageZoom,openPopup).createCard();
-}
-
-function closePopup(element) {
-  element.classList.remove('popup_opened');
-  document.removeEventListener('keydown',handleCloseByEscape);
-}
-
-function openPopup (element) {
-  element.classList.add('popup_opened');
-  document.addEventListener('keydown',handleCloseByEscape);
-}
-
-function handleCloseByEscape(e) {
-  if(e.key==='Escape') closePopup(document.querySelector('.popup_opened'));
-}
-
-function handleCloseByLayout(e) {
-  if (e.target.classList.contains('popup_opened')) closePopup(e.target);
+function handleCardClick(src,text){
+  popupZoom.open(src,text);
 }
 
 function handleFormEditSubmit (evt) {
   evt.preventDefault();
-  closePopup(formEditProfile);
-  textProfileName.textContent = inputName.value;
-  textProfileAbout.textContent = inputAbout.value;
+  infoUser.setUserInfo({name: inputName.value, about : inputAbout.value})
+  popupFormEdit.close();
 }
 
 function handleFormAddSubmit (evt) {
   evt.preventDefault();
   validatorAddCard.disableSubmitButton();
-  closePopup(formAddCard);
-  addCard(createCard(textPlaceName.value,linkPlace.value,templateCard,fieldZoom,captionZoom,imageZoom,openPopup));
-  formAdd.reset();
+  renderCard({name : textPlaceName.value, src : linkPlace.value});
+  popupAddCard.close();
 }
 
 buttonOpenEditProfilePopup.addEventListener('click', function () {
-  inputName.value= textProfileName.textContent;
-  inputAbout.value = textProfileAbout.textContent;
-  openPopup(formEditProfile);
+  inputName.value= infoUser.getUserInfo().name;
+  inputAbout.value = infoUser.getUserInfo().about;
+  popupFormEdit.open();
 });
 
 buttonOpenAddCardPopup.addEventListener('click', function () {
-  openPopup(formAddCard);
+  popupAddCard.open();
 });
-
-buttonCloseZoomPopup.addEventListener('click', function () {
-  closePopup(fieldZoom);
-});
-
-buttonCloseEditProfilePopup.addEventListener('click', function () {
-  closePopup(formEditProfile);
-});
-
-buttonCloseAddCardProfilePopup.addEventListener('click', function () {
-  closePopup(formAddCard);
-});
-
-formAddCard.addEventListener('submit', handleFormAddSubmit);
-formAddCard.addEventListener('click', handleCloseByLayout);
-formEditProfile.addEventListener('submit', handleFormEditSubmit);
-formEditProfile.addEventListener('click', handleCloseByLayout);
-fieldZoom.addEventListener('click', handleCloseByLayout);
-
-const validatorAddCard = new FormValidator(settingsFormValidator,formAddCard);
-const validatorEditProfile = new FormValidator(settingsFormValidator,formEditProfile);
 
 validatorAddCard.enableValidation();
 validatorEditProfile.enableValidation();
 
-initialCards.forEach((el) => {
-  addCard(createCard(el.name,el.src,templateCard,fieldZoom,captionZoom,imageZoom,openPopup));
-})
+section.renderItems();
