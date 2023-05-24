@@ -37,7 +37,6 @@ const cardContainer = document.querySelector('.cards');
 const templateCard = document.querySelector('#card-template').content;
 const formEditProfile = document.querySelector('#popup_edit-profile');
 const formAddCard = document.querySelector('#popup_add-place');
-const formAdd = document.querySelector('#form_add');
 const textProfileName= document.querySelector('.profile__name');
 const textProfileAbout= document.querySelector('.profile__about');
 const textPlaceName= document.querySelector('#form_place-name');
@@ -50,23 +49,22 @@ const captionZoom = fieldZoom.querySelector('.popup__caption');
 const inputName = document.querySelector('#form_name');
 const inputAbout = document.querySelector('#form_about');
 const settingsFormValidator = {
+
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button-submit',
   inactiveButtonClass: 'popup__button-submit_disabled',
   activeButtonClass: 'popup__button-submit_activated',
   inputErrorClass: 'popup__input_type_error',
+
 }
 
 const popupAddCard = new PopupWithForm(formAddCard, handleFormAddSubmit);
 const popupFormEdit = new PopupWithForm(formEditProfile, handleFormEditSubmit);
 const popupZoom = new PopupWithImage(fieldZoom);
-
 const validatorAddCard = new FormValidator(settingsFormValidator,formAddCard);
 const validatorEditProfile = new FormValidator(settingsFormValidator,formEditProfile);
-
 const section = new Section({items: initialCards, renderer: renderCard}, cardContainer);
-
 const infoUser = new UserInfo(textProfileName,textProfileAbout);
 
 function renderCard({name, src}) {
