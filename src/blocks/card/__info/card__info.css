@@ -1,6 +1,7 @@
 .card__info{
   display: flex;
   flex-direction: row;
-  padding-top: 25px;
+  justify-content: space-between;
+  padding-top: 22px;
   padding-bottom: 32px;
 }

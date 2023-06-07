@@ -1,8 +1,11 @@
 export default class Section {
-  constructor({items, renderer}, selector) {
+  constructor(selector) {
+    this._container = document.querySelector(selector);
+  }
+
+  init({items, renderer}){
     this._items = items;
     this._renderer = renderer;
-    this._container = document.querySelector(selector);
   }
 
   renderItems() {
@@ -10,6 +13,10 @@ export default class Section {
   }
 
   addItem(itemHtml) {
-    this._container.prepend(itemHtml);
+    this._container.append(itemHtml);
+  }
+
+  clean(){
+    this._container.innerText = '';
   }
 }
