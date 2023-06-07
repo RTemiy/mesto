@@ -12,17 +12,12 @@ export default class Api {
   getInitialCards() {
     return fetch(this._baseUrl + '/cards', {headers : this._headers})
       .then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
+
   }
 
   getUserInfo(){
     return fetch(this._baseUrl + '/users/me', {headers : this._headers})
       .then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
   }
 
   sendUserInfo({name, about}){
@@ -34,9 +29,6 @@ export default class Api {
         about: about,
       })
     }).then(res => this._waitResponse(res))
-    .catch(err=>{
-      console.log(err)
-    })
   }
 
   sendUserAvatar({avatar}){
@@ -46,10 +38,7 @@ export default class Api {
       body: JSON.stringify({
         avatar : avatar,
       })
-    }).then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
+    })
   }
 
   postCard({name,link}){
@@ -61,9 +50,6 @@ export default class Api {
         link: link,
       })
     }).then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
   }
 
   deleteCard(id){
@@ -81,9 +67,6 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     }).then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
   }
 
   addCardLike(id){
@@ -91,9 +74,6 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     }).then(res => this._waitResponse(res))
-      .catch(err=>{
-        console.log(err)
-      })
   }
 
 }

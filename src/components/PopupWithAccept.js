@@ -8,16 +8,19 @@ export default class PopupWithAccept extends Popup{
     this.setEventListeners()
   }
 
-  open(id) {
+  open(id,el) {
     super.open();
     this._setAccept(id);
+    this._removeElement = el;
   }
 
   _setAccept(id){
     this._form.onsubmit = evt =>{
       evt.preventDefault();
-      this._apiDeleteCard(id);
-      this.close();
+      this._apiDeleteCard(id).then(()=>{
+        this._removeElement();
+        this.close();
+      })
     }
   }
 }

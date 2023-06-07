@@ -1,21 +1,14 @@
-import {settingsFormValidator} from '../scripts/utils/constants.js'
-import Card from '../scripts/components/Card.js'
-import FormValidator from '../scripts/components/FormValidator.js'
-import Section from '../scripts/components/Section.js'
-import PopupWithImage from '../scripts/components/PopupWithImage.js'
-import PopupWithForm from '../scripts/components/PopupWithForm.js'
-import UserInfo from '../scripts/components/UserInfo.js'
+import {settingsFormValidator, api} from '../utils/constants.js'
+import Card from '../components/Card.js'
+import FormValidator from '../components/FormValidator.js'
+import Section from '../components/Section.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import UserInfo from '../components/UserInfo.js'
 import './index.css'
-import Api from "../scripts/components/Api.js";
-import PopupWithAccept from '../scripts/components/PopupWithAccept.js'
+import PopupWithAccept from '../components/PopupWithAccept.js'
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-68',
-  headers: {
-    authorization: 'b60faf18-093f-4cca-bf55-4f4ebd3dcaef',
-    'Content-Type': 'application/json'
-  }
-});
+
 
 const buttonOpenEditProfilePopup= document.querySelector('.profile__edit');
 const buttonOpenAddCardPopup= document.querySelector('.profile__add');
@@ -34,28 +27,18 @@ const validatorAvatarEditProfile = new FormValidator(settingsFormValidator,'#pop
 const section = new Section('.cards');
 const infoUser = new UserInfo('.profile__name','.profile__about', '.profile__avatar');
 
-function renderAllCards(){
-  section.clean();
-  api.getInitialCards().then( res => {
+function renderAllCards(res){
     section.init({items: res, renderer: renderCard});
     section.renderItems();
-  });
 }
 
-function isOwner(data){
-  if(infoUser.getUserInfo()._id === data.owner._id) return infoUser.getUserInfo()._id;
-  else return false
-}
-
-function setUserInfo() {
-  return api.getUserInfo().then(res => {
+function setUserInfo(res) {
     infoUser.setUserInfo(res);
     infoUser.setUserAvatar(res)
-  })
 }
 
 function renderCard(data) {
-  const card = new Card(data, '#card-template', handleCardClick, handleDeleteCard, isOwner(data), infoUser.getUserInfo()._id, api).createCard();
+  const card = new Card(data, '#card-template', handleCardClick, handleDeleteCard, infoUser.getUserInfo()._id, likeCard, dislikeCard).createCard();
   section.addItem(card);
 }
 
@@ -65,27 +48,53 @@ function handleCardClick(src,text){
 
 function handleFormEditSubmit (data) {
   return api.sendUserInfo(data).then(() =>{
-        infoUser.setUserInfo(data);
+    infoUser.setUserInfo(data);
+  }).catch(err=>{
+    console.log(err)
   })
 }
 
 function handleFormAddSubmit (data) {
-  return api.postCard(data).then(() =>{
-    renderAllCards()
-  })
+  return api.postCard(data).then(res =>{
+    renderCard(res)
+  }).catch(err=>{
+      console.log(err)
+    })
 }
 
-function handleDeleteCard(id) {
-  popupDeleteCard.open(id);
+function handleDeleteCard(id,el) {
+  popupDeleteCard.open(id,el);
 }
 
 function deleteCard(id){
-  api.deleteCard(id).then(()=>{renderAllCards()});
+  return api.deleteCard(id)
+    .catch(err=>{
+    console.log(err)
+  })
 }
 
 function handleFormAvatarEditSubmit(data) {
   return api.sendUserAvatar(data).then(() =>{
     infoUser.setUserAvatar(data);
+  })
+    .catch(err=>{
+    console.log(err)
+  })
+}
+
+function likeCard(id) {
+  return api.deleteCardLike(id).then(res=>{
+    return res.likes;
+  }).catch(err=>{
+    console.log(err)
+  })
+}
+
+function dislikeCard(id) {
+  return api.addCardLike(id).then(res=>{
+    return res.likes;
+  }).catch(err=>{
+    console.log(err)
   })
 }
 
@@ -102,11 +111,16 @@ buttonOpenAddCardPopup.addEventListener('click', function () {
 });
 
 buttonOpenEditAvatarPopup.addEventListener('click', function (){
-  inputLink.value = document.querySelector('.profile__avatar').src;
+  inputLink.value = '';
   popupAvatarEdit.open()
 })
 
-setUserInfo().then(()=>{renderAllCards()});
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then( res => {
+    setUserInfo(res[1])
+    renderAllCards(res[0]);
+  })
+  .catch(err => { console.log(err)})
 
 validatorAddCard.enableValidation();
 validatorEditProfile.enableValidation();
